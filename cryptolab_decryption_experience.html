@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRYPTOLAB // Decryption Experience</title>
+<style>
+:root{--bg:#050914;--panel:#0b1426;--panel2:#101e35;--line:rgba(107,190,255,.19);--cyan:#55e6ff;--blue:#438dff;--violet:#a78bfa;--green:#5fffc0;--red:#ff6f91;--muted:#8ca6c9;--white:#edf7ff}
+*{box-sizing:border-box}html,body{margin:0;width:100%;min-height:100%;background:var(--bg);color:var(--white);font-family:Inter,Segoe UI,Arial,sans-serif}body{overflow-x:hidden;background:radial-gradient(ellipse at 50% -20%,#13294a 0%,#071020 45%,#040711 100%)}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.22;background-image:linear-gradient(rgba(71,155,255,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(71,155,255,.08) 1px,transparent 1px);background-size:42px 42px;mask-image:linear-gradient(to bottom,black,transparent 85%)}
+#particles{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.65}
+.app{position:relative;z-index:1;max-width:1440px;margin:auto;padding:22px 28px 34px}
+header{display:flex;align-items:center;justify-content:space-between;gap:18px;border-bottom:1px solid var(--line);padding:8px 0 18px}
+.brand{display:flex;align-items:center;gap:13px}.logo{width:42px;height:42px;border:1px solid #4adfff;border-radius:13px;display:grid;place-items:center;color:var(--cyan);font-size:22px;box-shadow:0 0 24px #32cfff44,inset 0 0 16px #32cfff22}
+.brand h1{font-size:16px;letter-spacing:.2em;margin:0;font-weight:800}.brand small{display:block;color:var(--muted);font-size:10px;letter-spacing:.2em;margin-top:4px}
+.header-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.status{font-size:10px;color:var(--green);letter-spacing:.14em;border:1px solid #5fffc044;padding:8px 11px;border-radius:99px}
+button,select,input,textarea{font:inherit}button{cursor:pointer;border:1px solid var(--line);background:#132440;color:var(--white);padding:10px 14px;border-radius:10px;transition:.2s}button:hover{border-color:var(--cyan);box-shadow:0 0 18px #38cfff25;transform:translateY(-1px)}button.primary{background:linear-gradient(110deg,#147db4,#4656c7);border-color:#64dfff;color:white;font-weight:700}button.ghost{background:transparent;color:var(--muted)}button:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.hero{padding:35px 0 24px;display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center}
+.eyebrow{color:var(--cyan);font-size:10px;letter-spacing:.25em;font-weight:800}.hero h2{font-size:clamp(30px,4.5vw,58px);line-height:1.02;letter-spacing:-.04em;margin:12px 0}.hero h2 span{color:var(--cyan);text-shadow:0 0 28px #4adfff55}.hero p{max-width:620px;color:#a9bdd9;line-height:1.65;font-size:14px}.hero-art{height:210px;position:relative;display:grid;place-items:center;perspective:700px;overflow:hidden;border:1px solid var(--line);border-radius:20px;background:radial-gradient(ellipse at center,#12325b 0%,#091426 55%,#07101d 100%)}
+.ring{position:absolute;width:180px;height:180px;border:1px solid #4adfff88;border-radius:50%;transform:rotateX(68deg);box-shadow:0 0 35px #39d7ff44;animation:spin 11s linear infinite}.ring.r2{width:235px;height:235px;border-color:#a78bfa66;animation-duration:17s;animation-direction:reverse}.core{font-size:64px;color:var(--cyan);filter:drop-shadow(0 0 20px #39dfff);animation:pulse 2.4s ease-in-out infinite}.hero-code{position:absolute;bottom:13px;left:16px;right:16px;display:flex;justify-content:space-between;color:#6e9bc7;font:10px ui-monospace,monospace;letter-spacing:.12em}
+@keyframes spin{to{transform:rotateX(68deg) rotateZ(360deg)}}@keyframes pulse{50%{transform:scale(1.09);filter:drop-shadow(0 0 34px #39dfff)}}@keyframes blink{50%{opacity:.35}}
+.nav{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 18px}.nav button{font-size:12px;color:#9fb5d4;background:#0b172a}.nav button.active{color:white;border-color:var(--cyan);background:linear-gradient(120deg,#12395a,#24285a);box-shadow:0 0 18px #39cfff22}
+.workspace{border:1px solid var(--line);border-radius:18px;background:linear-gradient(145deg,rgba(12,24,43,.96),rgba(6,13,26,.97));box-shadow:0 20px 70px #0008;overflow:hidden;min-height:480px}
+.panel-head{padding:19px 22px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:14px}.panel-head h3{margin:0;font-size:17px;letter-spacing:.02em}.panel-head p{margin:5px 0 0;color:var(--muted);font-size:12px}.panel-body{padding:22px}
+.tag{font-size:9px;letter-spacing:.16em;color:var(--cyan);border:1px solid #55e6ff44;border-radius:99px;padding:6px 9px;white-space:nowrap}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}.card{border:1px solid var(--line);border-radius:14px;padding:17px;background:linear-gradient(145deg,#0d1b30,#091323)}.card h4{margin:0 0 12px;font-size:12px;color:#cfe7ff;letter-spacing:.12em;text-transform:uppercase}.muted{color:var(--muted);font-size:12px;line-height:1.55}.field{display:flex;flex-direction:column;gap:7px;margin:10px 0}.field label{font-size:10px;color:#9db5d5;letter-spacing:.13em;text-transform:uppercase}.field input,.field textarea,.field select{width:100%;background:#050d1b;border:1px solid #294363;color:white;border-radius:9px;padding:12px;outline:none}.field textarea{min-height:74px;resize:vertical}.field input:focus,.field textarea:focus{border-color:var(--cyan);box-shadow:0 0 0 3px #55e6ff12}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:13px}.output{margin-top:14px;padding:15px;border:1px solid #55e6ff33;border-radius:12px;background:#061526}.output .label{font-size:9px;color:var(--cyan);letter-spacing:.18em}.output .value{font:700 23px ui-monospace,monospace;letter-spacing:.12em;overflow-wrap:anywhere;margin-top:8px;color:var(--green);text-shadow:0 0 16px #5fffc044}
+.letter-map{display:flex;gap:5px;flex-wrap:wrap;margin-top:15px}.letter{width:34px;height:38px;border:1px solid #284566;border-radius:7px;display:grid;place-items:center;font:12px ui-monospace,monospace;color:#a8c4e5;background:#0a192d}.letter.hit{border-color:var(--cyan);color:var(--cyan);box-shadow:0 0 14px #55e6ff55;transform:translateY(-4px)}
+.pipeline{display:flex;align-items:center;justify-content:center;gap:9px;flex-wrap:wrap;margin:18px 0}.node{min-width:125px;text-align:center;padding:15px 12px;border:1px solid #3a648b;border-radius:12px;background:linear-gradient(145deg,#102a48,#0a1729)}.node strong{display:block;font-size:12px}.node small{display:block;color:var(--muted);font-size:10px;margin-top:5px}.arrow{font-size:22px;color:var(--cyan);text-shadow:0 0 12px #55e6ff}
+.bytes{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;max-width:300px;margin:14px auto}.byte{aspect-ratio:1;border:1px solid #3b77a8;background:#0b2742;border-radius:7px;display:grid;place-items:center;color:#78eaff;font:12px ui-monospace,monospace;transition:.35s}.byte.active{background:#1c4d73;box-shadow:0 0 20px #55e6ff77;transform:scale(1.05)}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}.step{border:1px solid var(--line);padding:10px;border-radius:9px;color:#8ca6c9;font-size:10px;text-align:center}.step.on{color:white;border-color:var(--cyan);background:#123451;box-shadow:0 0 14px #55e6ff22}
+.big-display{text-align:center;padding:25px 12px;border-radius:13px;background:radial-gradient(ellipse,#102e50,#081323 70%);border:1px solid var(--line);margin:12px 0}.big-display .cipher{font:700 clamp(24px,4vw,42px) ui-monospace,monospace;color:var(--cyan);letter-spacing:.17em;overflow-wrap:anywhere}.big-display .caption{color:var(--muted);font-size:10px;letter-spacing:.16em;margin-top:9px}
+.challenge{max-width:760px;margin:auto}.timer{font:700 36px ui-monospace,monospace;color:var(--cyan);text-align:center;text-shadow:0 0 20px #55e6ff66}.footer{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;color:#6683a8;font-size:10px;padding:16px 4px}.hidden{display:none!important}
+#toast{position:fixed;z-index:9;bottom:20px;left:50%;transform:translateX(-50%);padding:12px 18px;border-radius:99px;background:#153452;border:1px solid var(--cyan);color:white;font-size:12px;opacity:0;pointer-events:none;transition:.25s}#toast.show{opacity:1}
+@media(max-width:800px){.app{padding:14px}.hero{grid-template-columns:1fr}.hero-art{height:170px}.grid2{grid-template-columns:1fr}.steps{grid-template-columns:repeat(2,1fr)}.panel-head{align-items:flex-start}.header-right .status{display:none}}
+@media print{body{background:#fff;color:#000}.nav,button{display:none}.workspace{background:#fff;color:#000}}
+</style>
+</head>
+<body>
+<canvas id="particles"></canvas>
+<div class="app">
+<header>
+ <div class="brand"><div class="logo">⌘</div><div><h1>CRYPTOLAB <span style="color:var(--cyan)">//</span> 01</h1><small>DECRYPTION RESEARCH INTERFACE</small></div></div>
+ <div class="header-right"><span class="status">● LOCAL SYSTEM READY</span><button class="ghost" id="soundBtn" onclick="toggleSound()">♫ Sound: Off</button><button class="ghost" onclick="document.documentElement.requestFullscreen?.()">⛶ Projector Mode</button></div>
+</header>
+<section class="hero">
+ <div><div class="eyebrow">INTERACTIVE CLASSROOM EXPERIENCE · BCA SEMESTER 3</div><h2>BREAK THE<br><span>ENCRYPTION.</span></h2><p>A hands-on decryption environment. Recover messages, inspect cryptographic transformations, and test what happens when the right key meets protected data.</p><div class="actions"><button class="primary" onclick="showTab('tunnel')">▶ Launch experience</button><button onclick="showTab('challenge')">Start a class challenge</button></div></div>
+ <div class="hero-art"><div class="ring"></div><div class="ring r2"></div><div class="core">⌑</div><div class="hero-code"><span>DATA_STREAM: ENCRYPTED</span><span>AWAITING KEY // 0x7F</span></div></div>
+</section>
+<nav class="nav">
+ <button class="active" data-tab="tunnel" onclick="showTab('tunnel')">01 · Signal Tunnel</button>
+ <button data-tab="caesar" onclick="showTab('caesar')">02 · Caesar Lab</button>
+ <button data-tab="substitution" onclick="showTab('substitution')">03 · Substitution</button>
+ <button data-tab="aes" onclick="showTab('aes')">04 · AES Core</button>
+ <button data-tab="rsa" onclick="showTab('rsa')">05 · RSA Exchange</button>
+ <button data-tab="challenge" onclick="showTab('challenge')">06 · Challenge Room</button>
+</nav>
+<main class="workspace">
+<section id="tunnel" class="tab">
+ <div class="panel-head"><div><h3>Signal Recovery Tunnel</h3><p>A cinematic visual metaphor: ciphertext enters the decoder and emerges as readable information.</p></div><span class="tag">VISUAL MODE</span></div>
+ <div class="panel-body">
+  <div class="big-display"><div class="caption">INCOMING ENCRYPTED TRANSMISSION</div><div class="cipher" id="tunnelCipher">4B 48 4F 4F 52 // 01001011</div></div>
+  <div class="pipeline">
+   <div class="node"><strong>▣ CIPHERTEXT</strong><small>Protected signal</small></div><div class="arrow">➜</div>
+   <div class="node" id="tunnelCore"><strong>◈ DECODER CORE</strong><small>Algorithm + key</small></div><div class="arrow">➜</div>
+   <div class="node"><strong>▤ PLAINTEXT</strong><small id="tunnelResult">Awaiting recovery</small></div>
+  </div>
+  <div style="height:8px;background:#13243a;border-radius:99px;overflow:hidden;margin:24px 0 8px"><div id="tunnelBar" style="width:0;height:100%;background:linear-gradient(90deg,var(--blue),var(--cyan),var(--violet));box-shadow:0 0 20px var(--cyan);transition:width 2.8s"></div></div>
+  <div style="display:flex;justify-content:space-between;color:var(--muted);font:10px ui-monospace,monospace"><span id="tunnelStatus">SYSTEM IDLE</span><span id="tunnelPercent">0%</span></div>
+  <div class="actions" style="justify-content:center;margin-top:22px"><button class="primary" onclick="runTunnel()">INITIATE DECRYPTION</button><button onclick="resetTunnel()">Reset signal</button></div>
+  <p class="muted" style="text-align:center;margin-top:18px">Teaching note: this tunnel is a visual metaphor, not a literal physical stage inside a computer.</p>
+ </div>
+</section>
+<section id="caesar" class="tab hidden">
+ <div class="panel-head"><div><h3>Caesar Cipher // Letter Recovery</h3><p>Move each encrypted letter backwards by the selected shift value.</p></div><span class="tag">CLASSICAL CIPHER</span></div>
+ <div class="panel-body grid2">
+  <div class="card"><h4>Input parameters</h4><div class="field"><label>Encrypted message</label><input id="caesarInput" value="KHOOR" maxlength="100" spellcheck="false"></div><div class="field"><label>Shift key</label><input id="caesarShift" type="number" min="0" max="25" value="3"></div><div class="actions"><button class="primary" onclick="decryptCaesar()">Decrypt message</button><button onclick="document.getElementById('caesarInput').value='KHOOR';document.getElementById('caesarShift').value=3;decryptCaesar()">Load HELLO demo</button></div><div class="output"><div class="label">RECOVERED PLAINTEXT</div><div class="value" id="caesarOutput">HELLO</div></div></div>
+  <div class="card"><h4>Letter-by-letter transformation</h4><p class="muted">Each letter moves backwards through the alphabet. Spaces and punctuation remain unchanged.</p><div id="caesarSteps" class="letter-map"></div><div class="letter-map" id="alphabetRow"></div><p class="muted" id="caesarExplain">K → H · H → E · O → L · O → L · R → O</p></div>
+ </div>
+</section>
+<section id="substitution" class="tab hidden">
+ <div class="panel-head"><div><h3>Substitution Cipher // Reverse Mapping</h3><p>Use a substitution key to map each cipher letter back to its original letter.</p></div><span class="tag">MAPPING ENGINE</span></div>
+ <div class="panel-body grid2">
+  <div class="card"><h4>Encrypted input</h4><div class="field"><label>Ciphertext</label><input id="subInput" value="XZQQJ" maxlength="100"></div><p class="muted">Demo key mapping: X→A, Z→P, Q→L, J→E. This is a teaching example, not a secure cipher.</p><button class="primary" onclick="decryptSub()">Apply reverse mapping</button><div class="output"><div class="label">RECOVERED MESSAGE</div><div class="value" id="subOutput">APPLE</div></div></div>
+  <div class="card"><h4>Reverse substitution table</h4><div id="subTable" style="display:grid;grid-template-columns:1fr 1fr;gap:8px"></div><p class="muted" style="margin-top:14px">The receiver needs the agreed substitution mapping. Without the key, the letter relationships are unknown.</p></div>
+ </div>
+</section>
+<section id="aes" class="tab hidden">
+ <div class="panel-head"><div><h3>AES Core // Symmetric Decryption</h3><p>Explore a real browser-based AES-GCM encryption/decryption round trip.</p></div><span class="tag">WEB CRYPTO API</span></div>
+ <div class="panel-body">
+  <div class="grid2">
+   <div class="card"><h4>Encrypted file payload</h4><div class="field"><label>Sample document text</label><textarea id="aesPlain">BCA MODULE 5: The original document is now readable.</textarea></div><div class="field"><label>Secret key</label><input value="Generated in this browser session" disabled></div><div class="actions"><button class="primary" id="aesRun" onclick="runAES()">Generate key & encrypt</button><button onclick="resetAES()">Reset</button></div></div>
+   <div class="card"><h4>Decryption output</h4><div class="big-display"><div style="font-size:38px">🔐 <span style="color:var(--cyan)">→</span> 📄</div><div class="caption">SAME SECRET KEY · AES-GCM</div></div><div class="output"><div class="label">RECOVERED DOCUMENT</div><div class="value" id="aesOutput" style="font-size:15px;letter-spacing:0">Awaiting encrypted payload…</div></div><p class="muted" id="aesStatus">Run the demonstration to generate a fresh key, encrypt the text, and decrypt it.</p></div>
+  </div>
+  <div class="card" style="margin-top:16px"><h4>Conceptual processing view</h4><div class="pipeline"><div class="node"><strong>PLAIN TEXT</strong><small>Original data</small></div><div class="arrow">→</div><div class="node"><strong>AES-GCM</strong><small>Secret key + nonce</small></div><div class="arrow">→</div><div class="node"><strong>CIPHERTEXT</strong><small>Protected bytes</small></div><div class="arrow">→</div><div class="node"><strong>DECRYPT</strong><small>Same key + nonce</small></div></div><p class="muted">This demo performs actual AES-GCM operations using the browser's Web Crypto API when available. AES-GCM includes authentication, so tampering or an incorrect key causes decryption to fail.</p></div>
+ </div>
+</section>
+<section id="rsa" class="tab hidden">
+ <div class="panel-head"><div><h3>RSA Exchange // Two-Key System</h3><p>Generate a public/private key pair and perform a real RSA-OAEP message round trip.</p></div><span class="tag">WEB CRYPTO API</span></div>
+ <div class="panel-body">
+  <div class="grid2">
+   <div class="card"><h4>Sender console</h4><div class="field"><label>Confidential message</label><input id="rsaPlain" value="Meet me at the library." maxlength="150"></div><div class="actions"><button class="primary" onclick="runRSA()">Generate keys & encrypt</button><button onclick="resetRSA()">Reset</button></div><div class="output"><div class="label">CIPHERTEXT (BASE64 PREVIEW)</div><div class="value" id="rsaCipher" style="font-size:13px;letter-spacing:0">No message encrypted</div></div></div>
+   <div class="card"><h4>Receiver console</h4><div class="big-display"><div style="font-size:35px">🔑 <span style="color:var(--violet)">+</span> 🗝️</div><div class="caption">PUBLIC KEY ENCRYPTS · PRIVATE KEY DECRYPTS</div></div><div class="output"><div class="label">PRIVATE-KEY DECRYPTION RESULT</div><div class="value" id="rsaOutput" style="font-size:15px;letter-spacing:0">Waiting for ciphertext…</div></div><p class="muted" id="rsaStatus">The browser will generate a temporary RSA-OAEP key pair for this demonstration.</p></div>
+  </div>
+  <div class="pipeline"><div class="node"><strong>MESSAGE</strong><small>Sender</small></div><div class="arrow">→</div><div class="node"><strong>PUBLIC KEY</strong><small>Encrypt</small></div><div class="arrow">→</div><div class="node"><strong>CIPHERTEXT</strong><small>Send</small></div><div class="arrow">→</div><div class="node"><strong>PRIVATE KEY</strong><small>Decrypt</small></div></div>
+  <p class="muted">This is a real RSA-OAEP demo using a temporary 2048-bit key pair. In real systems, RSA is commonly used to protect or exchange small keys rather than encrypt large files directly.</p>
+ </div>
+</section>
+<section id="challenge" class="tab hidden">
+ <div class="panel-head"><div><h3>Challenge Room // Recover the Signal</h3><p>Invite a classmate to solve a short decryption mission.</p></div><span class="tag">CLASSROOM MODE</span></div>
+ <div class="panel-body challenge">
+  <div class="big-display"><div class="caption">MISSION 01 · CAESAR SHIFT</div><div class="cipher" id="challengeCipher">WKH VHFUHW LV KH</div><div class="caption">KEY = 3 · SHIFT BACKWARD</div></div>
+  <div class="timer" id="timer">00:20</div>
+  <div class="field"><label>Enter recovered message</label><input id="challengeAnswer" placeholder="Type the plaintext here…" autocomplete="off"></div>
+  <div class="actions" style="justify-content:center"><button class="primary" onclick="startTimer()">Start 20-second timer</button><button onclick="checkChallenge()">Submit answer</button><button onclick="resetChallenge()">Reset mission</button></div>
+  <div class="output"><div class="label">MISSION RESULT</div><div class="value" id="challengeResult" style="font-size:17px;letter-spacing:.02em">Awaiting your attempt…</div></div>
+  <p class="muted" style="text-align:center">Hint: each letter moves three places backwards. Spaces stay in place.</p>
+ </div>
+</section>
+</main>
+<div class="footer"><span>CRYPTOLAB 01 · DECRYPTION TECHNIQUES</span><span>OFFLINE-FIRST · NO DATA UPLOAD · CLASSROOM DEMO</span><span>ESC: use browser fullscreen controls</span></div>
+</div>
+<div id="toast"></div>
+<script>
+const $=id=>document.getElementById(id);
+let soundOn=false,audioCtx=null,timerInterval=null,timeLeft=20;
+function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2300)}
+function showTab(id){document.querySelectorAll('.tab').forEach(x=>x.classList.add('hidden'));$(id).classList.remove('hidden');document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.tab===id));if(soundOn)beep(520,.06)}
+function toggleSound(){soundOn=!soundOn;$('soundBtn').textContent='♫ Sound: '+(soundOn?'On':'Off');if(soundOn){beep(660,.12);toast('Interface sounds enabled')}else toast('Interface sounds disabled')}
+function beep(freq=440,dur=.08){if(!soundOn)return;try{audioCtx=audioCtx||new(window.AudioContext||window.webkitAudioContext)();const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.frequency.value=freq;o.type='sine';g.gain.value=.035;o.connect(g);g.connect(audioCtx.destination);o.start();g.gain.exponentialRampToValueAtTime(.001,audioCtx.currentTime+dur);o.stop(audioCtx.currentTime+dur)}catch(e){}}
+function caesar(text,shift){shift=((shift%26)+26)%26;return [...text].map(c=>{let n=c.charCodeAt(0);if(n>=65&&n<=90)return String.fromCharCode((n-65-shift+26)%26+65);if(n>=97&&n<=122)return String.fromCharCode((n-97-shift+26)%26+97);return c}).join('')}
+function decryptCaesar(){const input=$('caesarInput').value,shift=Math.max(0,Math.min(25,Number($('caesarShift').value)||0)),out=caesar(input,shift);$('caesarOutput').textContent=out;const steps=[...input].map((c,i)=>{if(!/[a-z]/i.test(c))return `<span class="letter">${c}</span>`;return `<span class="letter hit" style="animation-delay:${i*.06}s">${c.toUpperCase()}→${caesar(c,shift).toUpperCase()}</span>`}).join('');$('caesarSteps').innerHTML=steps||'<span class="muted">No letters</span>';$('alphabetRow').innerHTML=[...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'].map((c,i)=>`<span class="letter ${i<shift?'hit':''}">${c}</span>`).join('');$('caesarExplain').textContent=`Each alphabetic character moves ${shift} position(s) backward. Output: ${out}`;beep(740,.08)}
+function decryptSub(){const map={X:'A',Z:'P',Q:'L',J:'E',x:'a',z:'p',q:'l',j:'e'};const out=[...$('subInput').value].map(c=>map[c]??(c.match(/[A-Z]/)?'?':c)).join('');$('subOutput').textContent=out;$('subTable').innerHTML=[['X','A'],['Z','P'],['Q','L'],['J','E']].map(([a,b])=>`<div class="node"><strong style="color:var(--cyan)">${a}</strong><small>decrypts to</small><strong style="color:var(--green)">${b}</strong></div>`).join('');beep(620,.08)}
+function runTunnel(){const bar=$('tunnelBar');bar.style.width='0';$('tunnelPercent').textContent='0%';$('tunnelStatus').textContent='KEY ACCEPTED // DECODING';$('tunnelResult').textContent='Processing…';$('tunnelCipher').textContent='4B 48 4F 4F 52 // 01001011';setTimeout(()=>{bar.style.width='100%'},80);let p=0;const iv=setInterval(()=>{p=Math.min(100,p+4);$('tunnelPercent').textContent=p+'%';if(p===100){clearInterval(iv);$('tunnelStatus').textContent='DECRYPTION COMPLETE';$('tunnelResult').textContent='HELLO';$('tunnelCipher').textContent='HELLO // PLAINTEXT RECOVERED';beep(880,.2);toast('Signal recovered successfully')}} ,75)}
+function resetTunnel(){$('tunnelBar').style.width='0';$('tunnelPercent').textContent='0%';$('tunnelStatus').textContent='SYSTEM IDLE';$('tunnelResult').textContent='Awaiting recovery';$('tunnelCipher').textContent='4B 48 4F 4F 52 // 01001011'}
+function bytesToBase64(bytes){let s='';bytes.forEach(b=>s+=String.fromCharCode(b));return btoa(s)}
+async function runAES(){const status=$('aesStatus'),out=$('aesOutput'),btn=$('aesRun');btn.disabled=true;out.textContent='Processing…';try{if(!crypto?.subtle)throw new Error('Web Crypto is unavailable in this browser context. Try a current browser or run from localhost.');const enc=new TextEncoder(),dec=new TextDecoder(),plain=$('aesPlain').value;const key=await crypto.subtle.generateKey({name:'AES-GCM',length:256},true,['encrypt','decrypt']);const iv=crypto.getRandomValues(new Uint8Array(12));const cipher=await crypto.subtle.encrypt({name:'AES-GCM',iv},key,enc.encode(plain));const recovered=await crypto.subtle.decrypt({name:'AES-GCM',iv},key,cipher);out.textContent=dec.decode(recovered);status.textContent=`SUCCESS · AES-256-GCM · ${cipher.byteLength} encrypted bytes · Fresh random key and nonce generated in memory.`;toast('AES encryption and decryption completed');beep(880,.16)}catch(e){out.textContent='Demo unavailable';status.textContent=e.message;toast(e.message)}finally{btn.disabled=false}}
+function resetAES(){$('aesOutput').textContent='Awaiting encrypted payload…';$('aesStatus').textContent='Run the demonstration to generate a fresh key, encrypt the text, and decrypt it.'}
+async function runRSA(){const cipherOut=$('rsaCipher'),plainOut=$('rsaOutput'),status=$('rsaStatus');plainOut.textContent='Generating key pair…';try{if(!crypto?.subtle)throw new Error('Web Crypto is unavailable in this browser context. Try a current browser or run from localhost.');const enc=new TextEncoder(),dec=new TextDecoder();const pair=await crypto.subtle.generateKey({name:'RSA-OAEP',modulusLength:2048,publicExponent:new Uint8Array([1,0,1]),hash:'SHA-256'},true,['encrypt','decrypt']);const bytes=enc.encode($('rsaPlain').value);if(bytes.length>190)throw new Error('Keep the message under 190 UTF-8 bytes for this RSA-2048 demo.');const cipher=await crypto.subtle.encrypt({name:'RSA-OAEP'},pair.publicKey,bytes);const recovered=await crypto.subtle.decrypt({name:'RSA-OAEP'},pair.privateKey,cipher);const b64=bytesToBase64(new Uint8Array(cipher));cipherOut.textContent=b64.slice(0,46)+'…';plainOut.textContent=dec.decode(recovered);status.textContent='SUCCESS · RSA-OAEP 2048-bit · Public key encrypted; matching private key decrypted. Temporary keys remain in memory only.';toast('RSA message recovered');beep(920,.16)}catch(e){cipherOut.textContent='No ciphertext';plainOut.textContent='Demo unavailable';status.textContent=e.message;toast(e.message)}}
+function resetRSA(){$('rsaCipher').textContent='No message encrypted';$('rsaOutput').textContent='Waiting for ciphertext…';$('rsaStatus').textContent='The browser will generate a temporary RSA-OAEP key pair for this demonstration.'}
+function startTimer(){clearInterval(timerInterval);timeLeft=20;$('timer').textContent='00:20';$('challengeResult').textContent='Timer running…';timerInterval=setInterval(()=>{timeLeft--;$('timer').textContent='00:'+String(Math.max(0,timeLeft)).padStart(2,'0');if(timeLeft<=0){clearInterval(timerInterval);$('challengeResult').textContent='TIME UP — reveal the answer: THE SECRET IS HE';beep(220,.2)}},1000)}
+function checkChallenge(){clearInterval(timerInterval);const ans=$('challengeAnswer').value.trim().toUpperCase().replace(/\s+/g,' ');if(ans==='THE SECRET IS HE'){$('challengeResult').textContent='✓ SIGNAL RECOVERED — excellent work!';$('challengeResult').style.color='var(--green)';beep(880,.2)}else{$('challengeResult').textContent='Not yet. Shift each letter 3 places backward.';$('challengeResult').style.color='var(--red)';beep(240,.12)}}
+function resetChallenge(){clearInterval(timerInterval);timeLeft=20;$('timer').textContent='00:20';$('challengeAnswer').value='';$('challengeResult').textContent='Awaiting your attempt…';$('challengeResult').style.color='var(--green)'}
+/* Ambient particles */
+const canvas=$('particles'),ctx=canvas.getContext('2d');let pts=[];function resize(){canvas.width=innerWidth*devicePixelRatio;canvas.height=innerHeight*devicePixelRatio;ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);pts=Array.from({length:Math.min(85,Math.floor(innerWidth/17))},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,vx:(Math.random()-.5)*.28,vy:(Math.random()-.5)*.28,r:Math.random()*1.5+.3}))}function draw(){ctx.clearRect(0,0,innerWidth,innerHeight);for(const p of pts){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>innerWidth)p.vx*=-1;if(p.y<0||p.y>innerHeight)p.vy*=-1;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle='#62dfff';ctx.fill()}for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){let a=pts[i],b=pts[j],d=Math.hypot(a.x-b.x,a.y-b.y);if(d<105){ctx.strokeStyle=`rgba(74,190,255,${(1-d/105)*.10})`;ctx.lineWidth=.7;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke()}}requestAnimationFrame(draw)}addEventListener('resize',resize);resize();draw();
+decryptCaesar();decryptSub();
+</script>
+</body>
+</html>
